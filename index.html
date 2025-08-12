@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Responder Life Insurance Assessment</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Page 1: Welcome/Hook -->
+    <div class="page active" id="page1">
+        <div class="container">
+            <div class="hero-section">
+                <div class="logo-container">
+                    <img src="First_Responder_Shield_Transparent.png" alt="First Responder Shield Logo" class="logo-image">
+                </div>
+                <div class="badge">
+                    <i class="fas fa-shield-alt"></i>
+                    First Responder Protection
+                </div>
+                <h1>Protect Your Family Like You Protect Others</h1>
+                <p class="subtitle">As a first responder, you put your life on the line every day. But what happens to your family if something happens to you?</p>
+                <div class="benefits">
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Coverage up to $2M</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Whole Life, Term Life, Mortgage Protection and Indexed Universal Life (IUL)</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>No medical exam required</span>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="nextPage()">
+                    See How Much Coverage You Need
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <p class="disclaimer">Takes less than 2 minutes • No commitment required</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Role Identification -->
+    <div class="page" id="page2">
+        <div class="container">
+            <h2>What type of first responder are you?</h2>
+            <p class="question-subtitle">This helps us provide the most relevant coverage options for your specific role.</p>
+            
+            <div class="options-grid">
+                <div class="option-card" onclick="selectOption('role', 'firefighter')">
+                    <div class="option-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3>Firefighter</h3>
+                    <p>Fire department personnel</p>
+                </div>
+                
+                <div class="option-card" onclick="selectOption('role', 'emt')">
+                    <div class="option-icon">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h3>EMT/Paramedic</h3>
+                    <p>Emergency medical services</p>
+                </div>
+                
+                <div class="option-card" onclick="selectOption('role', 'police')">
+                    <div class="option-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Police Officer</h3>
+                    <p>Law enforcement personnel</p>
+                </div>
+                
+                <div class="option-card" onclick="selectOption('role', 'other')">
+                    <div class="option-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h3>Other</h3>
+                    <p>Other first responder role</p>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="nextPage()" id="btn-next-2" disabled>
+                Continue
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Page 3: Family Status -->
+    <div class="page" id="page3">
+        <div class="container">
+            <h2>Do you have dependents who rely on your income?</h2>
+            <p class="question-subtitle">This helps us understand your family's financial protection needs.</p>
+            
+            <div class="options-simple">
+                <div class="option-simple" onclick="selectOption('dependents', 'yes')">
+                    <div class="option-content">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h3>Yes</h3>
+                            <p>I have a spouse, children, or other dependents</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="option-simple" onclick="selectOption('dependents', 'no')">
+                    <div class="option-content">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h3>No</h3>
+                            <p>I don't have dependents currently</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="nextPage()" id="btn-next-3" disabled>
+                Continue
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Page 4: Income/Protection Needs -->
+    <div class="page" id="page4">
+        <div class="container">
+            <h2>What's your annual household income?</h2>
+            <p class="question-subtitle">This helps us calculate the right amount of coverage for your family.</p>
+            
+            <div class="options-simple">
+                <div class="option-simple" onclick="selectOption('income', 'under-50k')">
+                    <div class="option-content">
+                        <h3>Under $50,000</h3>
+                    </div>
+                </div>
+                
+                <div class="option-simple" onclick="selectOption('income', '50k-75k')">
+                    <div class="option-content">
+                        <h3>$50,000 - $75,000</h3>
+                    </div>
+                </div>
+                
+                <div class="option-simple" onclick="selectOption('income', '75k-100k')">
+                    <div class="option-content">
+                        <h3>$75,000 - $100,000</h3>
+                    </div>
+                </div>
+                
+                <div class="option-simple" onclick="selectOption('income', '100k-150k')">
+                    <div class="option-content">
+                        <h3>$100,000 - $150,000</h3>
+                    </div>
+                </div>
+                
+                <div class="option-simple" onclick="selectOption('income', 'over-150k')">
+                    <div class="option-content">
+                        <h3>Over $150,000</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="nextPage()" id="btn-next-4" disabled>
+                Continue
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Page 5: Health Status -->
+    <div class="page" id="page5">
+        <div class="container">
+            <h2>How would you describe your health?</h2>
+            <p class="question-subtitle">This helps us find the best rates available for you.</p>
+            
+            <div class="options-simple">
+                <div class="option-simple" onclick="selectOption('health', 'excellent')">
+                    <div class="option-content">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h3>Excellent</h3>
+                            <p>No major health issues, non-smoker</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="option-simple" onclick="selectOption('health', 'good')">
+                    <div class="option-content">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h3>Good</h3>
+                            <p>Minor health conditions, well-controlled</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="option-simple" onclick="selectOption('health', 'fair')">
+                    <div class="option-content">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h3>Fair</h3>
+                            <p>Some health conditions, smoker</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="nextPage()" id="btn-next-5" disabled>
+                Continue
+                <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Page 6: Contact Capture -->
+    <div class="page" id="page6">
+        <div class="container">
+            <h2>Get Your Personalized Quote</h2>
+            <p class="question-subtitle">We'll analyze your responses and provide you with customized life insurance options and rates.</p>
+            
+                            <div class="contact-form">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" placeholder="Enter your first name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" placeholder="Enter your last name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth</label>
+                        <input type="date" id="dateOfBirth" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <select id="state" required>
+                            <option value="">Select your state</option>
+                            <option value="AL">Alabama</option>
+                            <option value="AK">Alaska</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="AR">Arkansas</option>
+                            <option value="CA">California</option>
+                            <option value="CO">Colorado</option>
+                            <option value="CT">Connecticut</option>
+                            <option value="DE">Delaware</option>
+                            <option value="FL">Florida</option>
+                            <option value="GA">Georgia</option>
+                            <option value="HI">Hawaii</option>
+                            <option value="ID">Idaho</option>
+                            <option value="IL">Illinois</option>
+                            <option value="IN">Indiana</option>
+                            <option value="IA">Iowa</option>
+                            <option value="KS">Kansas</option>
+                            <option value="KY">Kentucky</option>
+                            <option value="LA">Louisiana</option>
+                            <option value="ME">Maine</option>
+                            <option value="MD">Maryland</option>
+                            <option value="MA">Massachusetts</option>
+                            <option value="MI">Michigan</option>
+                            <option value="MN">Minnesota</option>
+                            <option value="MS">Mississippi</option>
+                            <option value="MO">Missouri</option>
+                            <option value="MT">Montana</option>
+                            <option value="NE">Nebraska</option>
+                            <option value="NV">Nevada</option>
+                            <option value="NH">New Hampshire</option>
+                            <option value="NJ">New Jersey</option>
+                            <option value="NM">New Mexico</option>
+                            <option value="NY">New York</option>
+                            <option value="NC">North Carolina</option>
+                            <option value="ND">North Dakota</option>
+                            <option value="OH">Ohio</option>
+                            <option value="OK">Oklahoma</option>
+                            <option value="OR">Oregon</option>
+                            <option value="PA">Pennsylvania</option>
+                            <option value="RI">Rhode Island</option>
+                            <option value="SC">South Carolina</option>
+                            <option value="SD">South Dakota</option>
+                            <option value="TN">Tennessee</option>
+                            <option value="TX">Texas</option>
+                            <option value="UT">Utah</option>
+                            <option value="VT">Vermont</option>
+                            <option value="VA">Virginia</option>
+                            <option value="WA">Washington</option>
+                            <option value="WV">West Virginia</option>
+                            <option value="WI">Wisconsin</option>
+                            <option value="WY">Wyoming</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter your email address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                    </div>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="consent" required>
+                        <span class="checkmark"></span>
+                        <span class="checkbox-text">
+                            <strong>I AGREE</strong> to receive quotes and information about life insurance options. I understand I can opt out at any time.
+                        </span>
+                    </label>
+                </div>
+            </div>
+            
+            <button class="btn-primary" onclick="submitForm()" id="btn-submit">
+                Get My Free Quote
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            
+            <p class="privacy-note">
+                <i class="fas fa-lock"></i>
+                Your information is secure and will only be used to provide you with life insurance quotes.
+            </p>
+        </div>
+    </div>
+
+    <!-- Page 7: Thank You -->
+    <div class="page" id="page7">
+        <div class="container">
+            <div class="thank-you-content">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                
+                <h2>Thank You!</h2>
+                <p class="thank-you-subtitle">We've received your information and are analyzing your needs.</p>
+                
+                <div class="next-steps">
+                    <h3>What happens next?</h3>
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Personalized Analysis</h4>
+                            <p>Our team will review your responses and calculate your coverage needs</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Agent Contact</h4>
+                            <p>A licensed agent will reach out within 24 hours with your customized options</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Free Consultation</h4>
+                            <p>Get your personalized quote and discuss the best coverage for your family</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bonus-offer">
+                    <h3>Schedule Your Free Consultation</h3>
+                    <p>Book a 15-minute call to discuss your personalized life insurance options and get your custom quote</p>
+                    <div class="calendly-inline-widget" data-url="https://calendly.com/connormorton-ffl/life-insurance" style="min-width:320px;height:700px;"></div>
+                </div>
+                
+                <div class="contact-info">
+                    <p><strong>Questions?</strong> Call us at 1-800-FIRST-INS</p>
+                    <p>Available 24/7 for first responders</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
