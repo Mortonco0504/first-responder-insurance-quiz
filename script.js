@@ -164,15 +164,41 @@ function submitForm() {
     quizData.email = document.getElementById('email').value.trim();
     quizData.phone = document.getElementById('phone').value.trim();
     
+    // Update hidden fields with quiz data
+    document.getElementById('militaryBranch').value = quizData.role;
+    document.getElementById('dependents').value = quizData.dependents;
+    document.getElementById('income').value = quizData.income;
+    document.getElementById('health').value = quizData.health;
+    
     // Show loading state
     const submitButton = document.getElementById('btn-submit');
     const originalText = submitButton.innerHTML;
     submitButton.innerHTML = '<span class="loading"></span> Processing...';
     submitButton.disabled = true;
     
-    // Simulate form submission (replace with actual API call)
-    setTimeout(() => {
-        // Store data (in real implementation, send to server)
+    // Submit form to Formspree using AJAX
+    const form = document.getElementById('contactForm');
+    const formData = new FormData(form);
+    
+    fetch('https://formspree.io/f/mpwlbpqj', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Form submitted successfully');
+        } else {
+            console.log('Form submission failed');
+        }
+    })
+    .catch(error => {
+        console.log('Error submitting form:', error);
+    })
+    .finally(() => {
+        // Store data locally
         localStorage.setItem('quizData', JSON.stringify(quizData));
         
         // Move to thank you page
@@ -185,10 +211,9 @@ function submitForm() {
         submitButton.innerHTML = originalText;
         submitButton.disabled = false;
         
-        // Track conversion (replace with actual analytics)
+        // Track conversion
         trackConversion();
-        
-    }, 2000);
+    });
 }
 
 // Analytics and tracking
