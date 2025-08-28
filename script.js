@@ -28,30 +28,17 @@ function setupEventListeners() {
     formInputs.forEach(input => {
         input.addEventListener('input', validateContactForm);
     });
-    
-    // Enter key navigation
-    document.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter' && currentPage < 6) {
-            const currentButton = document.querySelector(`#btn-next-${currentPage}`);
-            if (currentButton && !currentButton.disabled) {
-                nextPage();
-            }
-        }
-    });
 }
 
 // Navigation functions
 function nextPage() {
     if (currentPage < totalPages) {
-        // Validate current page before proceeding
-        if (validateCurrentPage()) {
-            hidePage(currentPage);
-            currentPage++;
-            showPage(currentPage);
-            updateProgressBar();
-            // Auto-scroll to top of the page
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        hidePage(currentPage);
+        currentPage++;
+        showPage(currentPage);
+        updateProgressBar();
+        // Auto-scroll to top of the page
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 }
 
@@ -100,11 +87,12 @@ function selectOption(field, value) {
     // Add selected class to clicked option
     event.currentTarget.classList.add('selected');
     
-    // Enable continue button
-    const continueButton = document.getElementById(`btn-next-${currentPage}`);
-    if (continueButton) {
-        continueButton.disabled = false;
-    }
+    // Auto-advance to next page after a short delay
+    setTimeout(() => {
+        if (currentPage < 6) { // Don't auto-advance from the contact form page
+            nextPage();
+        }
+    }, 500); // 500ms delay to show the selection
 }
 
 // Validation functions
