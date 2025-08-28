@@ -49,6 +49,8 @@ function nextPage() {
             currentPage++;
             showPage(currentPage);
             updateProgressBar();
+            // Auto-scroll to top of the page
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     }
 }
@@ -59,6 +61,8 @@ function previousPage() {
         currentPage--;
         showPage(currentPage);
         updateProgressBar();
+        // Auto-scroll to top of the page
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 }
 
