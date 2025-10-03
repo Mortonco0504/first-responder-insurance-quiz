@@ -184,7 +184,7 @@ function submitForm() {
             console.log('Form submitted successfully');
             // Google conversion tracking
             gtag('event', 'conversion', {
-                'send_to': 'AW-11492282990/YlsdCPG3yvYZEO6k-ecq',
+                'send_to': 'AW-11492282990/kAfaCLTg0KYbEO6k-ecq',
                 'value': 1.0,
                 'currency': 'USD'
             });
