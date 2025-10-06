@@ -19,6 +19,12 @@ const totalPages = 7;
 document.addEventListener('DOMContentLoaded', function() {
     updateProgressBar();
     setupEventListeners();
+    
+    // Track page view
+    trackPageView();
+    
+    // Track time on page
+    trackTimeOnPage();
 });
 
 // Setup event listeners
@@ -37,6 +43,10 @@ function nextPage() {
         currentPage++;
         showPage(currentPage);
         updateProgressBar();
+        
+        // Track quiz progress
+        trackQuizProgress(currentPage);
+        
         // Auto-scroll to top of the page
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -215,6 +225,72 @@ function submitForm() {
 }
 
 // Analytics and tracking
+function trackPageView() {
+    // Track page view with Google Analytics
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_view', {
+            'page_title': 'Veteran Valor Life Insurance Quiz',
+            'page_location': window.location.href,
+            'event_category': 'engagement',
+            'event_label': 'quiz_landing_page'
+        });
+    }
+    
+    // Track with custom analytics
+    const pageViewData = {
+        timestamp: new Date().toISOString(),
+        url: window.location.href,
+        referrer: document.referrer,
+        userAgent: navigator.userAgent,
+        screenResolution: `${screen.width}x${screen.height}`,
+        viewportSize: `${window.innerWidth}x${window.innerHeight}`
+    };
+    
+    // Store locally for tracking
+    localStorage.setItem('pageView_' + Date.now(), JSON.stringify(pageViewData));
+    
+    console.log('Page view tracked:', pageViewData);
+}
+
+function trackTimeOnPage() {
+    const startTime = Date.now();
+    
+    // Track time on page when user leaves
+    window.addEventListener('beforeunload', function() {
+        const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+        
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'time_on_page', {
+                'event_category': 'engagement',
+                'event_label': 'quiz_session_duration',
+                'value': timeOnPage
+            });
+        }
+        
+        // Store session data
+        const sessionData = {
+            timestamp: new Date().toISOString(),
+            duration: timeOnPage,
+            pagesViewed: currentPage,
+            quizCompleted: currentPage >= 7
+        };
+        
+        localStorage.setItem('session_' + Date.now(), JSON.stringify(sessionData));
+    });
+}
+
+function trackQuizProgress(pageNumber) {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'quiz_progress', {
+            'event_category': 'engagement',
+            'event_label': `page_${pageNumber}`,
+            'value': pageNumber
+        });
+    }
+    
+    console.log(`Quiz progress: Page ${pageNumber}`);
+}
+
 function trackConversion() {
     // Google Analytics event (replace with your tracking code)
     if (typeof gtag !== 'undefined') {
@@ -296,6 +372,54 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Analytics data retrieval
+function getAnalyticsData() {
+    const pageViews = [];
+    const sessions = [];
+    
+    // Get all page view data from localStorage
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key && key.startsWith('pageView_')) {
+            try {
+                const data = JSON.parse(localStorage.getItem(key));
+                pageViews.push(data);
+            } catch (e) {
+                console.error('Error parsing page view data:', e);
+            }
+        }
+        if (key && key.startsWith('session_')) {
+            try {
+                const data = JSON.parse(localStorage.getItem(key));
+                sessions.push(data);
+            } catch (e) {
+                console.error('Error parsing session data:', e);
+            }
+        }
+    }
+    
+    return {
+        pageViews: pageViews,
+        sessions: sessions,
+        totalPageViews: pageViews.length,
+        totalSessions: sessions.length,
+        completedQuizzes: sessions.filter(s => s.quizCompleted).length
+    };
+}
+
+function displayAnalyticsData() {
+    const data = getAnalyticsData();
+    
+    console.log('=== ANALYTICS SUMMARY ===');
+    console.log(`Total Page Views: ${data.totalPageViews}`);
+    console.log(`Total Sessions: ${data.totalSessions}`);
+    console.log(`Completed Quizzes: ${data.completedQuizzes}`);
+    console.log(`Conversion Rate: ${data.totalSessions > 0 ? ((data.completedQuizzes / data.totalSessions) * 100).toFixed(2) : 0}%`);
+    console.log('========================');
+    
+    return data;
+}
 
 // Error handling
 window.addEventListener('error', function(e) {
