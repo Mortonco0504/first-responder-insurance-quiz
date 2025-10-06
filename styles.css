@@ -105,7 +105,33 @@ body {
     font-size: 12px;
     font-weight: 600;
     margin-bottom: 15px;
-    border: 2px solid #d4af37;
+}
+
+/* Rating Badge Styles */
+.rating-badge {
+    background: linear-gradient(135deg, #d4af37, #b8860b);
+    color: #2d5016;
+    border: 1px solid #d4af37;
+    margin: 0 8px 15px 0;
+}
+
+.rating-badge .stars {
+    display: flex;
+    gap: 2px;
+}
+
+.rating-badge .stars i {
+    color: #d4af37;
+    font-size: 10px;
+    text-shadow: 0 0 2px rgba(45, 80, 22, 0.3);
+}
+
+/* Professional Badge Styles */
+.professional-badge {
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+    color: white;
+    border: 1px solid #3b82f6;
+    margin: 0 8px 15px 0;
 }
 
 .hero-section h1 {
